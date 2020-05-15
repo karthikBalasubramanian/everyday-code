@@ -101,6 +101,12 @@ ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in Ma
 
 alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file on MacOS Desktop
 
+#Git
+alias branch='git branch'
+alias remote='git remote -v'
+alias push='git push origin master'
+alias merge='git checkout master; git fetch upstream; git merge upstream/master; ${push}'
+
 #   ------------------------------------------------------------
 #   Custom to XYZ.Inc
 #   ------------------------------------------------------------
@@ -108,3 +114,14 @@ alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file
 #   ------------------------------------------------------------
 #   Custom to XYZ.Inc
 #   ------------------------------------------------------------
+
+#   lr:  Full Recursive Directory Listing
+#   ------------------------------------------
+alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
+
+#   mans:   Search manpage given in agument '1' for term given in argument '2' (case insensitive)
+#           displays paginated result with colored search terms and two lines surrounding each hit.            Example: mans mplayer codec
+#   --------------------------------------------------------------------
+    mans () {
+        man $1 | grep -iC2 --color=always $2 | less
+    }
